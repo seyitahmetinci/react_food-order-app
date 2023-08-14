@@ -6,17 +6,17 @@ import CartContext from "../../store/card-context";
 const HeaderCartButton = (props) => {
     const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
     const cartCtx = useContext(CartContext);
-    const {items } = cartCtx;
-    const numberOfCartItems = items.reduce((curNumber,item) => {
+
+    const { items } = cartCtx;
+
+    const numberOfCartItems = items.reduce((curNumber, item) => {
         return curNumber + item.amount;
-    },0);
+    }, 0);
 
-
-
-    const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump: ''}`;
+    const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
     useEffect(() => {
-        if (items.length === 0){
+        if (items.length === 0) {
             return;
         }
         setBtnIsHighlighted(true);
@@ -29,12 +29,16 @@ const HeaderCartButton = (props) => {
             clearTimeout(timer);
         };
     }, [items]);
-    return(
-        <button className={classes.button} onClick={props.onClick}>
-                <span className={classes.icon}> <CartIcon /></span>
-                <span> Your Card </span>
-                <span className={classes.badge}>{numberOfCartItems}</span>
+
+    return (
+        <button className={btnClasses} onClick={props.onClick}>
+      <span className={classes.icon}>
+        <CartIcon />
+      </span>
+            <span>Your Cart</span>
+            <span className={classes.badge}>{numberOfCartItems}</span>
         </button>
     );
-}
+};
+
 export default HeaderCartButton;
